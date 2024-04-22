@@ -7,9 +7,7 @@ import os
 from textwrap import wrap
 import re
 
-AZURE_OPENAI_KEY = "64e7c187bf824fb6a1ed25d889592335"
-AZURE_OPENAI_ENDPOINT = "https://ragembedding.openai.azure.com/"
-OPENAI_API_VERSION = "2023-12-01-preview"
+
 # OpenAI API配置
 client = AzureOpenAI(
         api_key=AZURE_OPENAI_KEY,  
