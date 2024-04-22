@@ -19,7 +19,7 @@ client = AzureOpenAI(
 import requests
 
 API_URL = "https://api-inference.huggingface.co/models/wintercoming6/lol-champion-skin-sdxl-lora3"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer hf_xxx"}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
