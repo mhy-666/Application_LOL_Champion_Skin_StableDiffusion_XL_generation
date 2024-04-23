@@ -6,6 +6,7 @@ from openai import AzureOpenAI
 import os
 import re
 
+
 # OpenAI API配置
 client = AzureOpenAI(
         api_key=st.secrets["AZURE_OPENAI_KEY"],  
