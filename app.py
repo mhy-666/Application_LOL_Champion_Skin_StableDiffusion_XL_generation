@@ -43,6 +43,8 @@ def split_into_sentences(text):
 def main():
     # Streamlit应用
     st.set_page_config(page_title="League of Legend Comic Generator", page_icon="📚")
+    st.title("League of Legend Comic Generator")
+    st.image("./data/league-of-legends-pc-game-cover.jpg")
     
     # 创建文本输入框和提交按钮
     prompt = st.text_input("enter your prompt here:")
