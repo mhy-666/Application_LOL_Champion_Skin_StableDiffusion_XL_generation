@@ -4,24 +4,20 @@ import io
 import requests
 from openai import AzureOpenAI
 import os
-from textwrap import wrap
 import re
 
-AZURE_OPENAI_KEY = "64e7c187bf824fb6a1ed25d889592335"
-AZURE_OPENAI_ENDPOINT = "https://ragembedding.openai.azure.com/"
-OPENAI_API_VERSION = "2023-12-01-preview"
 # OpenAI API配置
 client = AzureOpenAI(
-        api_key=AZURE_OPENAI_KEY,  
-        api_version=OPENAI_API_VERSION,
-        azure_endpoint=AZURE_OPENAI_ENDPOINT
+        api_key=st.secrets["AZURE_OPENAI_KEY"],  
+        api_version=st.secrets["OPENAI_API_VERSION"],
+        azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"]
     )
 
 # Hugging Face API配置
 import requests
 
 API_URL = "https://api-inference.huggingface.co/models/wintercoming6/lol-champion-skin-sdxl-lora3"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": f"Bearer {st.secrets['HF_API_TOKEN']}"}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
@@ -45,11 +41,11 @@ def split_into_sentences(text):
 
 def main():
     # Streamlit应用
-    st.set_page_config(page_title="漫画书")
+    st.set_page_config(page_title="League of Legend Comic Generator", page_icon="📚", layout="wide")
     
     # 创建文本输入框和提交按钮
-    prompt = st.text_input("输入prompt")
-    submit_button = st.button("提交")
+    prompt = st.text_input("enter your prompt here:")
+    submit_button = st.button("Submit")
     messages = [
     {"role": "system", "content": "You are a writer assistant who helps people write comic plot, you need to write plot in 4 paragraphs every time."},
     {"role": "user", "content": prompt}
@@ -86,12 +82,12 @@ def main():
         images = st.session_state['images']
         prev_page, next_page = st.columns(2)
         current_page = st.session_state.get("current_page", 0)
-        if prev_page.button("上一页"):
+        if prev_page.button("Previous Page"):
             current_page = max(0, current_page - 1)
-        if next_page.button("下一页"):
+        if next_page.button("Next Page"):
             current_page = min(len(images) - 1, current_page + 1)
         st.session_state["current_page"] = current_page
-        st.image(images[current_page][0], caption=f"第 {current_page+1} 页", use_column_width=True)
+        st.image(images[current_page][0], caption=f"Page {current_page+1}", use_column_width=True)
         st.write(images[current_page][1])
 
 
