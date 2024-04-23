@@ -40,6 +40,10 @@ def split_into_sentences(text):
     sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', text)
     return sentences
 
+def split_into_paragraphs(text):
+    paragraphs = text.split("\n\n")
+    return paragraphs
+
 def main():
     # Streamlit应用
     st.set_page_config(page_title="League of Legend Comic Generator", page_icon="📚")
@@ -63,17 +67,9 @@ def main():
         
 
 
-        sentences = split_into_sentences(response_text)
-        response_chunks = []
-        current_chunk = ""
-        for sentence in sentences:
-            if len(current_chunk) + len(sentence) <= len(response_text) // 4:
-                current_chunk += sentence + " "
-            else:
-                response_chunks.append(current_chunk.strip())
-                current_chunk = sentence + " "
-        if current_chunk:
-            response_chunks.append(current_chunk.strip())
+        paragraphs = split_into_paragraphs(response_text)
+        response_chunks = paragraphs  # 只取前4个段落
+
 
         # 使用 GPT-3.5 的响应生成 4 张图片
         images = generate_images(response_chunks)
