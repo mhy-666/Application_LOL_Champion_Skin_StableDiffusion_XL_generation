@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import os
 
-from src.embedding import get_embedding
+from scripts.embedding import get_embedding
 
 from pinecone import Pinecone
 

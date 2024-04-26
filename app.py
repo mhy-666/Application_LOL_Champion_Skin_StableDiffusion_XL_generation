@@ -7,14 +7,14 @@ import os
 import re
 
 
-# OpenAI API配置
+# OpenAI API config
 client = AzureOpenAI(
         api_key=st.secrets["AZURE_OPENAI_KEY"],  
         api_version=st.secrets["OPENAI_API_VERSION"],
         azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"]
     )
 
-# Hugging Face API配置
+# Hugging Face API
 import requests
 
 API_URL = "https://api-inference.huggingface.co/models/wintercoming6/lol-champion-skin-sdxl-lora3"
@@ -27,7 +27,7 @@ image_bytes = query({
 	"inputs": "Astronaut riding a horse",
 })
 
-# 定义函数,根据GPT-3.5的响应生成4张图片
+# generate images according to the reponse of GPT3.5
 def generate_images(response_chunks):
     images = []
     for chunk in response_chunks:
@@ -45,19 +45,19 @@ def split_into_paragraphs(text):
     return paragraphs
 
 def main():
-    # Streamlit应用
+    # Streamlit app
     st.set_page_config(page_title="League of Legend Comic Generator", page_icon="📚")
     st.title("League of Legend Comic Generator")
-    st.image("./data/league-of-legends-pc-game-cover.jpg")
+    st.image("./data/cover/league-of-legends-pc-game-cover.jpg")
     
-    # 创建文本输入框和提交按钮
+    # create text input ui
     prompt = st.text_input("enter your prompt here:")
     submit_button = st.button("Submit")
     messages = [
     {"role": "system", "content": "You are a writer assistant who helps people write comic plot, you need to write plot in 4 paragraphs every time."},
     {"role": "user", "content": prompt}
     ]
-    # 如果用户点击了提交按钮,则发送请求到GPT-3.5
+    # if user click the button, send request
     if submit_button and prompt:
         gpt_answer =  client.chat.completions.create(
         model = 'RAG-gpt-35',
@@ -68,15 +68,15 @@ def main():
 
 
         paragraphs = split_into_paragraphs(response_text)
-        response_chunks = paragraphs  # 只取前4个段落
+        response_chunks = paragraphs 
 
 
-        # 使用 GPT-3.5 的响应生成 4 张图片
+        
         images = generate_images(response_chunks)
 
         st.session_state['images'] = images
 
-    # 添加翻页按钮
+    # add next page feature
     if 'images' in st.session_state:
         images = st.session_state['images']
         prev_page, next_page = st.columns(2)

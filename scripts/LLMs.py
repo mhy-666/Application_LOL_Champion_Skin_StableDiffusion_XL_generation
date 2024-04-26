@@ -1,6 +1,5 @@
 import os
 from openai import AzureOpenAI
-import streamlit as st
 
 def get_chat_answer(prompt, context, chat_model = "RAG-gpt-35"):
     '''

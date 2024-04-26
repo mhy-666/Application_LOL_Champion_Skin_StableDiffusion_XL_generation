@@ -1,6 +1,5 @@
-from src.data_extraction import load_data
-from src.data_chunk import chunk_story
-from src.embedding import get_df_embeddings
+from scripts.data_chunk import chunk_story
+from scripts.embedding import get_df_embeddings
 
 import pandas as pd
 from pinecone import Pinecone
@@ -51,9 +50,10 @@ def store_data():
     processed_df = data_processing(csv_path=csv_path)
 
     # initialize connection to pinecone (get API key at app.pc.io)
-    api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
-    environment = os.environ.get('PINECONE_ENVIRONMENT') or 'PINECONE_ENVIRONMENT'
-
+    # api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
+    # environment = os.environ.get('PINECONE_ENVIRONMENT') or 'PINECONE_ENVIRONMENT'
+    api_key = "e3bb9b88-936e-41e3-91a5-47bc14257395"
+    environment = "gcp-starter"
     # configure client
     pc = Pinecone(api_key=api_key)
 
@@ -71,7 +71,8 @@ def get_index():
     This function returns the index
     '''
     index_name = 'rag'
-    api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
+    # api_key = os.environ.get('PINECONE_API_KEY') or 'PINECONE_API_KEY'
+    api_key = "e3bb9b88-936e-41e3-91a5-47bc14257395"
     pc = Pinecone(api_key=api_key)
     index = pc.Index(index_name)
 
