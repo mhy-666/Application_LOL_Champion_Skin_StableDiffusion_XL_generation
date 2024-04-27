@@ -197,7 +197,7 @@ To run this project, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-repo.git`
 After you fork and git clone the project, You should do the following steps:
-1. Prepare for the virtual environment `python -m venv venv`
-2. Activate virtual environment.<br/> Windows:`venv\Scripts\activate`, MacOS or Linux:`source venv/bin/activate`
-3. Install required packages `pip install -r requirements.txt`
-
+2. Prepare for the virtual environment `python -m venv venv`
+3. Activate virtual environment.<br/> Windows:`venv\Scripts\activate`, MacOS or Linux:`source venv/bin/activate`
+4. Install required packages `pip install -r requirements.txt`
+5. Run the app.py using `streamlit run app.py`
